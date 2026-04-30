@@ -2,18 +2,13 @@ package poolfinder.entity;
 
 // import lombok for getters and setters
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
+
 
 // annotations and designations
 @Entity
 @Table(name = "city")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 
 // primary table and key with 3 declared fields
 public class City {
