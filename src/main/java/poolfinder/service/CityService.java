@@ -23,7 +23,7 @@ public class CityService {
     // method to return a single city by its Id
     public City getCityById(Long cityId) {
         return cityRepository.findById(cityId)
-        .orElseThrow(() -> new ResourceNotFoundException("City not found"));
+        .orElseThrow(() -> new ResourceNotFoundException("Cannot get Id, City not found"));
     }
 
     // method to create a new city in the database
@@ -38,7 +38,7 @@ public class CityService {
         // use the handler class for this method rather than create 
         // another new package. Just check it in the update method
         City existingCity = cityRepository.findById(cityId)
-        .orElseThrow(() -> new ResourceNotFoundException("City not Found"));
+        .orElseThrow(() -> new ResourceNotFoundException("Cannot update city, City not Found"));
 
         existingCity.setCityName(updatedCity.getCityName());
         existingCity.setCountyName(updatedCity.getCountyName());
@@ -53,7 +53,7 @@ public class CityService {
         // use the handler class for this method rather than create 
         // another new package. Just check it in this delete method
         City city = cityRepository.findById(cityId)
-        .orElseThrow(() -> new ResourceNotFoundException("City not Found"));
+        .orElseThrow(() -> new ResourceNotFoundException("Cannot delete city, it doesn't exist!"));
 
         cityRepository.delete(city);
     }

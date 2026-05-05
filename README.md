@@ -62,3 +62,14 @@
 - pool.pool_id → review.pool_id
 - pool.pool_id → pool_amenity.pool_id
 - amenity.amenity_id → pool_amenity.amenity_id
+
+## Database Setup (Seed Data)
+
+This project includes a pre-built SQL file to quickly populate the database with realistic sample data.
+
+### Steps
+
+1. Create the database in MySQL:
+
+```sql
+CREATE DATABASE pool_finder;

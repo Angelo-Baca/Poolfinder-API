@@ -3,11 +3,13 @@ package poolfinder.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import poolfinder.entity.Pool;
 import poolfinder.exception.ResourceNotFoundException;
 import poolfinder.repository.PoolRepository;
 
+@Service
 public class PoolService {
     
     @Autowired
@@ -21,7 +23,7 @@ public class PoolService {
     // method to return a single pool by its Id
     public Pool getPoolById(Long poolId) {
         return poolRepository.findById(poolId)
-        .orElseThrow(() -> new ResourceNotFoundException("Pool not found"));
+        .orElseThrow(() -> new ResourceNotFoundException("Cannot locate pool Id, pool not found"));
     }
 
     // method to create a new pool in the database
@@ -36,23 +38,21 @@ public class PoolService {
         // use the handler class for this method rather than create 
         // another new package. Just check it in the update method
         Pool existingPool = poolRepository.findById(poolId)
-        .orElseThrow(() -> new ResourceNotFoundException("Pool not Found"));
+        .orElseThrow(() -> new ResourceNotFoundException("Cannot update pool, pool not Found"));
 
-        existingPool.setPoolName(updatedPool.getPoolName());
-        /* 
-        existingPool.setCountyName(updatedPool.getCountyName());
-        existingPool.setState(updatedPool.getState());
-        */
+        existingPool.setPoolName(updatedPool.getPoolName()); 
+        existingPool.setType(updatedPool.getType());
+        existingPool.setIsPublic(updatedPool.getIsPublic());
+        existingPool.setAddress(updatedPool.getAddress());
+        existingPool.setCity(updatedPool.getCity());
+        
         return poolRepository.save(existingPool);
     }
 
     // method to delete an existing pool in database
     public void deletePool(Long poolId) {
-        // secondary safety check to make sure pool exists
-        // use the handler class for this method rather than create 
-        // another new package. Just check it in this delete method
         Pool pool = poolRepository.findById(poolId)
-        .orElseThrow(() -> new ResourceNotFoundException("Pool not Found"));
+        .orElseThrow(() -> new ResourceNotFoundException("Cannot delete pool, it doesn't exist!"));
 
         poolRepository.delete(pool);
     }

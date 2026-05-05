@@ -25,4 +25,6 @@ public class City {
 
     @Column(name = "state", nullable = false)
     private String state;
+
+    
 }

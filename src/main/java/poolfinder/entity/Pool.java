@@ -1,18 +1,21 @@
 package poolfinder.entity;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
 @Data
 @Table(name = "pool")
-
 public class Pool {
 
     @Id
@@ -27,6 +30,14 @@ public class Pool {
     // relationship comes next
     @ManyToOne
     @JoinColumn(name = "city_id")
-    private Pool pool;
+    private City city;
+
+    @ManyToMany
+    @JoinTable(
+        name = "pool_amenity",
+        joinColumns = @JoinColumn(name = "pool_id"),
+        inverseJoinColumns = @JoinColumn(name = "amenity_id")
+    )
+    private List<Amenity> amenities;
 
 }
